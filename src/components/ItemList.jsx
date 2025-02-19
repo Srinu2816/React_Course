@@ -1,6 +1,16 @@
+import { useDispatch } from "react-redux";
 import { CDN_DISH_IMG_URL, dummy_image_url } from "../../Utils/constant";
+import { addItem } from "../../Utils/cartSlice";
+import { ToastContainer, toast } from "react-toastify";
 
 const ItemList = ({ items }) => {
+   const dispatch = useDispatch();
+
+  const handleAddItem = (item) =>{
+    toast("Item add successfully!!!")
+    dispatch(addItem(item))
+  }   
+
   console.log("items", items);
   return (
     <div>
@@ -29,7 +39,8 @@ const ItemList = ({ items }) => {
             <button
               className=' font-semibold bg-transparent hover:bg-gray-800 hover:text-slate-100 border border-blue-200 hover:border-transparent absolute top-3/4 right-19 bg-zinc-100 text-cyan-700 rounded mx-2 my-2 px-7 py-1 '
               onClick={() => {
-                alert("Clicked");
+                //dispatch the action 
+                  handleAddItem(item);
               }}>
               ADD
             </button>

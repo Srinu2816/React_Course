@@ -1,8 +1,10 @@
 const About = () => {
     return (
-        <div>
-            <h1>About Us</h1>
-            <h2> I am learning the react Coures</h2>
+        <div className="grid justify-center items-center min-h-screen">
+            <div>
+            <h1 className="font-bold text-2xl">I'm from About Us</h1>
+            <h2> will update soon !!!</h2>
+            </div>
         </div>
     )
 }

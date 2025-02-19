@@ -11,38 +11,43 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { Login } from "./components/Login";
 import SignUp from "./components/SignUp";
 import ProtectRoutes from "../Utils/ProtectRoutes";
-import React, { useState } from "react";
+import { useState } from "react";
+import { Provider } from "react-redux";
+import appStore from "../Utils/appStore";
+import Cart from "./components/Cart";
 
 const AppLayout = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   return (
-    <div id='app'>
-      <Header />
-      <Outlet />
-    </div>
+    <Provider store={appStore}>
+      <div id='app'>
+        <Header />
+        <Outlet context={{isAuthenticated, setIsAuthenticated}}/>
+      </div>    
+    </Provider>
   );
 };
 
-const [isAuthenticated, setIsAuthenticated] = useState(false);
 
 const appRouter = createBrowserRouter([
-  {
+  {  
     path: "/",
     element: <AppLayout />,
     children: [
       {
         path: "/",
-        element: <Login isAuthenticated={setIsAuthenticated} />,
+        element: <Login />,
       },
       {
-        path: "/Signup",
+        path: "/signup",
         element: <SignUp />,
       },
       {
         path: "/dashboard",
         element: (
-          <ProtectRoutes isAuthenticated={isAuthenticated}>
-            <Dashboard />
-          </ProtectRoutes>
+          <Dashboard />,
+        // <ProtectRoutes><Dashboard /></ProtectRoutes>
         ),
       },
       {
@@ -54,12 +59,12 @@ const appRouter = createBrowserRouter([
         element: <About />,
       },
       {
-        path: "/sample",
-        element: <SS />,
+        path: "/cart",
+        element: <Cart />,
       },
       {
         path: "/contact",
-        element: <Contact />,
+        element: <ProtectRoutes><Contact /></ProtectRoutes>,
       },
     ],
     errorElement: <Error />,

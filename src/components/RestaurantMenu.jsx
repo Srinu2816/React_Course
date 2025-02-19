@@ -9,20 +9,20 @@ import CardsCatagory from "./CardsCatagory";
 const RestaurantMenu = () => {
   const { resId } = useParams();
   const menuInfo = useRestaurantMenu(resId);
-  const [searchText, setSearchText] = useState("");
+  // const [searchText, setSearchText] = useState("");
 
-  useEffect(() => {
-    fetchdata();
-  }, [searchText]);
+  // useEffect(() => {
+  //   fetchdata();
+  // }, [searchText]);
 
-  const fetchdata = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/menu/pl/search?lat=17.3982116&lng=78.3748513&restaurantId=2519&isMenuUx4=true&query=bir&submitAction=ENTER"
-    );
-    const json = await data.json();
-    // console.log(json)
-    // setSearchText(json)
-  };
+  // const fetchdata = async () => {
+  //   const data = await fetch(
+  //     "https://www.swiggy.com/dapi/menu/pl/search?lat=17.3982116&lng=78.3748513&restaurantId=2519&isMenuUx4=true&query=bir&submitAction=ENTER"
+  //   );
+  //   const json = await data.json();
+  //   // console.log(json)
+  //   // setSearchText(json)
+  // };
 
   if (menuInfo == null) {
     return <Shimmer />;

@@ -1,25 +1,27 @@
 import { Checkbox, Input } from "@headlessui/react";
 import { Alert, Button, Card } from "flowbite-react";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, useOutletContext } from "react-router";
 import { useCallback, useContext, useState } from "react";
 import Body from "./Dashboard";
 
-export const Login = ({ isAuthenticated }) => {
-  const [login, setLogin] = useState(false);
-  const [userInfo, setUserInfo] = useState([]);
+export const Login = () => {
   const navigate = useNavigate();
+  const {setIsAuthenticated} = useOutletContext();
 
   function validation() {
     const data = JSON.parse(localStorage.getItem("user-info"));
+  console.log(data)
     const email = document.getElementById("inp_email").value;
     const pass = document.getElementById("inp_pass").value;
     if (email && pass) {
+      let obj = data.filter( (item) => item.email == email )
+      console.log(obj)
       if (
-        data.email === document.getElementById("inp_email").value &&
-        data.password === document.getElementById("inp_pass").value
+        obj[0].email === document.getElementById("inp_email").value &&
+        obj[0].password === document.getElementById("inp_pass").value
       ) {
-        isAuthenticated(true);
-        navigate("/dashboard");
+        setIsAuthenticated(true);
+        navigate("/Dashboard");
       } else {
         alert("Sorry!!! wrong Credentials");
       }

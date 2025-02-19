@@ -37,8 +37,9 @@ const SignUp = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = (data) => {
-    localStorage.setItem("user-info", JSON.stringify(data));
-    console.log(JSON.parse(localStorage.getItem("user-info")));
+    let arr = JSON.parse(localStorage.getItem("user-info")) || [];
+    arr ? arr.push(data) : localStorage.setItem("user-info", JSON.stringify(data));
+    localStorage.setItem("user-info", JSON.stringify(arr));
     toast("Account is Created Successfully !!!!");
     reset();
     navigate("/");

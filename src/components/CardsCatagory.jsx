@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ItemList from "./itemlist";
+import { ToastContainer } from "react-bootstrap";
 
 ItemList;
 const CardsCatagory = ({ data }) => {
@@ -45,6 +46,7 @@ const CardsCatagory = ({ data }) => {
           <spam className='p-2'>⬇️</spam>
         </div>
         <div className='p-2'>{showItems && <ItemList items={finallist} />}</div>
+        <div><ToastContainer/></div>
       </div>
     </div>
   );

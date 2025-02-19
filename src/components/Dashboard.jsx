@@ -7,12 +7,12 @@ import { Link } from "react-router";
 import userInfo from "../../Utils/UserContext";
 
 const Dashboard = () => {
-  const [ListOfRestra, setListOfRestra] = useState(null);
-  const [filteredList, setFilteredList] = useState(null);
+  const [ListOfRestra, setListOfRestra] = useState([]);
+  const [filteredList, setFilteredList] = useState([]);
   const [searchText, setSearchText] = useState("");
   const status = useOnlineStatus();
-
   const CardPromoted = Localitylabel(Cards);
+  
   useEffect(() => {
     fetchData();
   }, []);
@@ -23,7 +23,6 @@ const Dashboard = () => {
     const json_data = json?.data?.cards.filter(
       (card) => card?.card?.card?.info
     );
-    json_data == null;
     setListOfRestra(json_data);
     setFilteredList(json_data);
   };
@@ -31,7 +30,7 @@ const Dashboard = () => {
   if (status == false) {
     return <h1>Looks like your in offline!!!!</h1>;
   }
-  return ListOfRestra == null ? (
+  return ListOfRestra == [] ? (
     <Shimmer />
   ) : (
     <div className='border-gray-50'>

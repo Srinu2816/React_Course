@@ -3,12 +3,16 @@ import { HEADER_LOGO } from "../../Utils/constant";
 import { Link } from "react-router";
 import useOnlineStatus from "../../Utils/useOnlineStatus";
 import UserContext from "../../Utils/UserContext";
+import { useSelector } from "react-redux";
 export const Header = () => {
   const [btnName, setBtnName] = useState("Login");
 
   const status = useOnlineStatus();
 
   const { loggedIn } = useContext(UserContext);
+
+  // Subscribing to the store using a selector
+  const cartItems = useSelector((store) => store.cart.items)
 
   return (
     <div className='flex justify-between w-auto bg-blue-200'>
@@ -19,16 +23,16 @@ export const Header = () => {
         <ul className='flex mx-4'>
           <li className='px-4'>Online Status : {status ? "✅" : "🔴"}</li>
           <li className='px-4'>
-            <Link to='/restaurants'>Home</Link>
+          <Link to='/Dashboard'>Home</Link>
           </li>
           <li className='px-4'>
             <Link to='/Contact'>Contact</Link>
           </li>
           <li className='px-4'>
             <Link to='/About'>About us</Link>
-          </li>
-          <li className='px-4 font-bold'>
-            <Link> {loggedIn}</Link>
+          </li> 
+          <li className='px-4 font-bold '>
+            <Link to={"/Cart"}> Cart-({cartItems.length}) </Link>
           </li>
           <li className='px-4 '>
             <Link to={"/"}> Login</Link>
